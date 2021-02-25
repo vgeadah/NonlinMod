@@ -2,7 +2,9 @@
 
 Accompanying code to [Advantages of biologically-inspired adaptive neural activation in RNNs during learning](https://arxiv.org/abs/2006.12253). In this repo, we introduce models for nonlinearity modulation alongside learning, and nonlinearity adaptation at inference time.
 
-This work is centered around the activation function **gamma**, parametrised by a degree of neuronal gain *n* and degree of saturation *s*. Go to `/NetworkCreation/gamma_function.py` for a stand alone script of the function implemented for Pytorch.
+This work is centered around the activation function **gamma**, a smooth two-parameter family of activation functions parametrised by a degree of neuronal gain *n* and degree of saturation *s*. Go to `/NetworkCreation/gamma_function.py` for a stand alone script of the function implemented for Pytorch.
+
+![Figure](./Postprocessing/figures/gamma_shape.png)
 
 Tasks based on code from [nnRNN](https://github.com/KyleGoyette/nnRNN).
 
@@ -27,9 +29,10 @@ acting on *x* with two parameters controlling its shape, the degree of saturatio
 
 Most up-to-date script, including implementation of the ANRU architecture along with baselines. Usage:
 ```
-python3 sMNIST_task.py <args>
+python3 sMNIST_task.py [args]
 ```
 optional arguments:
+```
   -h, --help            show this help message and exit
   -g, --cuda            Use CUDA
   -p, --permute         permute the order of sMNIST
@@ -61,11 +64,9 @@ optional arguments:
 
 ### Character level prediction (PTB)
 
-Character level prediction with the Penn-Tree Bank corpus.
-
-usage:
+Character level prediction with the Penn-Tree Bank corpus. Note adapted to the new ANRU architecture. Usage:
 ```
-python3 PTB_task.py <args>
+python3 PTB_task.py [args]
 ```
 
 Optional arguments:

@@ -1,6 +1,0 @@
-Mutual information calculations
-psMNIST task on 2020-08-31 17:12:00.697865
-
-Saving to: ./Postprocessing/calculations/MI/psMNIST/400/2020-08-31
-
-Hyperparameters:
