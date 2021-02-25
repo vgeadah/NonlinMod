@@ -1,0 +1,10 @@
+Mutual information calculations
+psMNIST task on 2020-09-11 09:10:29.712220
+
+Saving to: ./Postprocessing/calculations/MI/psMNIST/400/2020-09-11/n_1.00_s_0.00
+
+Hyperparameters:
+	cuda: False 
+	seed: 400 
+	batch: 100 
+	note:  

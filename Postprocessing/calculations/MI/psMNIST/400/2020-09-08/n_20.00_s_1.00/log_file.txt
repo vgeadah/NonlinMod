@@ -1,0 +1,3 @@
+Logfile for [n,s]=[20.00, 1.00]:
+
+Finished in 0.0901641845703125s

@@ -1,0 +1,9 @@
+Jacobian norm calculations
+psMNIST task on 2020-08-31 15:44:16.868297
+
+Saving to: ./Postprocessing/calculations/JN/psMNIST/400/2020-08-31
+
+Hyperparameters:
+	cuda: False 
+	seed: 400 
+	batch: 100 

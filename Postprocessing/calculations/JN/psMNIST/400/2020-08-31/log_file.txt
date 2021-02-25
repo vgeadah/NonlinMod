@@ -1,0 +1,5 @@
+Logs:
+
+Model built: (1.000, 0.000)
+Set up done, time: 0.12843. Starting simulation:
+	Sample  0, Mean JN: 1.35784, time: 1.72160
