@@ -1,6 +1,6 @@
 # Nonlinearity Adaptation & Modulation in RNNs
 
-Accompanying code to [Advantages of biologically-inspired adaptive neural activation in RNNs during learning](https://arxiv.org/abs/2006.12253). In this repo, we introduce models for nonlinearity modulation alongside learning, and nonlinearity adaptation at inference time.
+Accompanying code to [Neural networks with optimized single-neuron adaptation uncover biologically plausible regularization](https://www.biorxiv.org/content/10.1101/2022.04.29.489963v3). In this repo, we introduce models for nonlinearity modulation alongside learning, and nonlinearity adaptation at inference time.
 
 This work is centered around the activation function **gamma**, a smooth two-parameter family of activation functions parametrised by a degree of neuronal gain *n* and degree of saturation *s*. Go to `/NetworkCreation/gamma_function.py` for a stand alone script of the function implemented for Pytorch.
 
@@ -8,26 +8,10 @@ This work is centered around the activation function **gamma**, a smooth two-par
 
 Tasks based on code from [nnRNN](https://github.com/KyleGoyette/nnRNN).
 
-<!---
-## Contributions: models
 
-1. Activation function *gamma*: To allow for its modulation on different timescales, we propose a novel, smooth two-parameter family of activation functions defined by
+## Training
 
-![http://latex.codecogs.com/svg.latex?\gamma (x ;n,s) = (1-s)\frac{\log (1+ e^{n x })}{n} + s\frac{e^{nx }}{1+e^{nx}}](http://latex.codecogs.com/svg.latex?\gamma&space;(x&space;;n,s)&space;=&space;(1-s)\frac{\log&space;(1&plus;&space;e^{n&space;x&space;})}{n}&space;&plus;&space;s\frac{e^{nx&space;}}{1&plus;e^{nx}})
-
-acting on *x* with two parameters controlling its shape, the degree of saturation *s* and neuronal gain *n*.
-
-![Figure](./Postprocessing/figures/gamma_shape.png)
-
-2. *Adaptive Nonlinearity Recurrent Unit* 
-![Figure](./Postprocessing/figures/ANRU.png){:height="50%" width="50%"}
---->
-
-## Tasks
-
-### Permuted Sequential MNIST (psMNIST)
-
-Most up-to-date script, including implementation of the ANRU architecture along with baselines. Usage:
+We provide code for the **Permuted Sequential MNIST (psMNIST)** task, including implementation of the ANRU architecture along with baselines. Usage:
 ```
 python3 sMNIST_task.py [args]
 ```
@@ -62,42 +46,9 @@ optional arguments:
                         Ratio of dataset to apply sin transform on inputs.
 ```
 
-### Character level prediction (PTB)
+## Postprocessing
 
-Character level prediction with the Penn-Tree Bank corpus. Note adapted to the new ANRU architecture. Usage:
-```
-python3 PTB_task.py [args]
-```
-
-Optional arguments:
-```
-  -h, --help            show this help message and exit
-  --emsize EMSIZE       size of word embeddings
-  --nhid NHID           number of hidden units per layer
-  --capacity CAPACITY   unitary matrix capacity
-  --epochs EPOCHS       upper epoch limit
-  --batch_size N        batch size
-  --bptt BPTT           sequence length
-  --tied                tie the word embedding and softmax weights
-  --seed SEED           random seed
-  -g, --cuda            Use CUDA
-  --log-interval N      report interval
-  --save SAVE           path to save the final model
-  --net-type NET_TYPE   rnn net type
-  --lr LR
-  --lr_orth LR_ORTH
-  --rinit RINIT         recurrent weight matrix initialization
-  --iinit IINIT         input weight matrix initialization
-  --ostep_method OSTEP_METHOD
-                        if learnable P, which way, exp or cayley
-  --alam ALAM           alpha values lamda for ARORNN and ARORNN2
-  --nonlin NONLIN       non linearity none, modrelu, relu, tanh, sigmoid
-  --n N                 degree of nonlinearity
-  --s S                 degree of saturation
-  --save-freq SAVE_FREQ
-                        frequency to save data
-  -lp, --learn_params   learn the shape parameters
-  --weight_decay WEIGHT_DECAY
-  --alpha ALPHA
-  --adam                Use adam
-```
+We include in the `Postprocessing` folder various files to analyze and plot results from trained models. In the folder `Postprocessing/FigureGeneration/`, one can find the necessary code to reproduce the figures. As for post-processing metrics, we provide the following:
+ 
+- Lyapunov Exponents : Relevant code can be found in `Postprocessing/LEs.py`, specifically the method `calculateLEs`. 
+- Fractional differentiation : The method `frac_diff` in `Postprocessing/FigureGeneration/figuregeneration_defs.py` can be used to calculate the fractional order derivative of a single scalar signal. For its use to determine the fractional order of the neural activity signal, as outline in the Methods section of the paper, we refer to the accompanying code in `Postprocessing/FigureGeneration/appendix_fracdiff.py`.  

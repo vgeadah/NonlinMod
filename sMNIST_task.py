@@ -12,7 +12,7 @@ import datetime
 working_dir = os.path.dirname(os.path.realpath(__file__))
 
 from NetworkCreation.common import henaff_init, cayley_init, random_orthogonal_init
-from NetworkCreation.Networks import ANRU, RNN, LSTM, GRU
+from NetworkCreation.Networks import ARUN, RNN, LSTM, GRU
 from Training.training_utils import LocalTransform, SinTransform, StepTransform
 from torch._utils import _accumulate
 from torch.utils.data import Subset
@@ -126,7 +126,7 @@ if __name__ == "__main__":
                             str(args.seed),
                             udir,
                             str(datetime.date.today()))
-            # Savedir is of type: ./Training/SavedModels/psMNIST/400/ANRU_lr0.0001_p0.0_hs400/2020-01-02/
+            # Savedir is of type: ./Training/SavedModels/psMNIST/400/ARUN_lr0.0001_p0.0_hs400/2020-01-02/
 
     if not args.test:
         # Considering args.verbose runs as just debugging, so allowing overwritting. 
@@ -201,7 +201,7 @@ class Model(nn.Module):
                     temp.retain_grad()
 
             # if return_ns:
-            #     if args.net_type=='ANRU': 
+            #     if args.net_type=='ARUN': 
             #         shape_signals.append(shape_parameters)
             #         pre_activations.append(pre_activs.cpu().detach().numpy())
             #     hiddens.append(h_net0.cpu().detach().numpy())
@@ -221,7 +221,7 @@ class Model(nn.Module):
         # preactivs_label = 'net0_preactivations'+suffix+'.npy'
 
         # if return_ns: 
-        #     if args.net_type=='ANRU': 
+        #     if args.net_type=='ARUN': 
         #         np.save(os.path.join(MODELDIR, shape_signals_label), shape_signals)
         #         np.save(os.path.join(MODELDIR, preactivs_label), pre_activations)
         #     np.save(os.path.join(MODELDIR, hiddens_label), hiddens)
@@ -239,7 +239,7 @@ def test_model(net, dataloader, transform=None, return_parameters=False, externa
             if CUDA:
                 x = x.cuda()
                 y = y.cuda()
-            if args.net_type == 'LSTM' or args.net_type == 'ANRU':
+            if args.net_type == 'LSTM' or args.net_type == 'ARUN':
                 net.rnn.init_states(x.shape[0])
             loss, c, _ = net.forward(x, y, order, transform=transform, return_ns=False, external_drive=external_drive)
             if args.verbose:
@@ -265,7 +265,7 @@ def train_model(net, optimizer, scheduler, num_epochs):
 
     train_losses, train_accuracies = [], []
     val_losses, val_accuracies = [], []
-    val_T_losses, val_T_accuracies = [], []
+    val_losses_T, val_accuracies_T = [], []
     save_norms = []
     shape_params = []
 
@@ -292,7 +292,7 @@ def train_model(net, optimizer, scheduler, num_epochs):
             if CUDA:
                 inp_x = inp_x.cuda()
                 inp_y = inp_y.cuda()
-            if args.net_type == 'LSTM' or args.net_type=='ANRU':
+            if args.net_type == 'LSTM' or args.net_type=='ARUN':
                 net.rnn.init_states(inp_x.shape[0])
 
             optimizer.zero_grad()
@@ -386,8 +386,8 @@ def train_model(net, optimizer, scheduler, num_epochs):
 inp_size = 1
 
 if __name__ == "__main__":
-    if args.net_type == 'ANRU':
-        rnn = ANRU(inp_size, main_hidden_size=args.nhid, supervisor_hidden_size=50, cuda=CUDA,
+    if args.net_type == 'ARUN':
+        rnn = ARUN(inp_size, main_hidden_size=args.nhid, supervisor_hidden_size=50, cuda=CUDA,
                             r_initializer=args.rinit, i_initializer=args.iinit, adaptation_type='heterogeneous', verbose=args.verbose)
     elif args.net_type == 'RNN':
         if args.random:
