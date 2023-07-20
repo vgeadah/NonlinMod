@@ -114,9 +114,9 @@ class GammaRNN(RNN):
 
         return hion
 
-class ANRU(nn.Module):
+class ARUN(nn.Module):
     r"""
-    ANRU = Adaptive Nonlinearity Recurrent Unit. 
+    ANRU = Adaptive Recurrent Unit Network. 
     Composed of a main processing unit (net0, module of type GammaRNN) and 
         a second RNN (net1) tasked with modulating the nonlinearity of net0.
     Args:
